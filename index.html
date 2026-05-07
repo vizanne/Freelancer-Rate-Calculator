@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Freelance Rate Calculator — Know Your Worth</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #FDF6EC; --warm-white: #FFFAF4; --sand: #F0E6D3;
+    --amber: #E8A045; --amber-dark: #C4832A; --amber-light: #FFF0D6;
+    --forest: #2D4A3E; --forest-light: #3D6355;
+    --text: #2C3E35; --text-light: #6B7C74;
+    --red: #D64C3F; --red-light: #FDECEA;
+    --green: #3A7D5C; --green-light: #E6F4EE;
+    --shadow: rgba(45,74,62,0.12); --radius: 20px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--text); min-height: 100vh; }
+
+  header { background: var(--forest); color: var(--cream); padding: 36px 24px 28px; text-align: center; position: relative; overflow: hidden; }
+  header::before { content:''; position:absolute; top:-40px; right:-40px; width:180px; height:180px; border-radius:50%; background:rgba(232,160,69,0.18); }
+  header::after  { content:''; position:absolute; bottom:-30px; left:-20px; width:120px; height:120px; border-radius:50%; background:rgba(232,160,69,0.10); }
+  header .tag { display:inline-block; background:var(--amber); color:var(--forest); font-size:11px; font-weight:700; letter-spacing:2px; text-transform:uppercase; padding:5px 14px; border-radius:30px; margin-bottom:14px; }
+  header h1 { font-family:'Playfair Display',serif; font-size:clamp(26px,6vw,40px); font-weight:900; line-height:1.15; margin-bottom:10px; position:relative; }
+  header h1 span { color:var(--amber); }
+  header p { font-size:15px; opacity:0.8; max-width:340px; margin:0 auto; position:relative; }
+
+  .tabs { display:flex; background:var(--sand); border-bottom:2px solid #e0d4c0; position:sticky; top:0; z-index:100; }
+  .tab { flex:1; padding:15px 8px; text-align:center; font-size:13px; font-weight:600; color:var(--text-light); cursor:pointer; border-bottom:3px solid transparent; transition:all 0.2s; }
+  .tab.active { color:var(--forest); border-bottom-color:var(--amber); background:var(--warm-white); }
+
+  .section { display:none; padding:24px 20px 40px; max-width:540px; margin:0 auto; }
+  .section.active { display:block; animation: fadeUp 0.3s ease; }
+  @keyframes fadeUp { from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);} }
+
+  .card { background:var(--warm-white); border-radius:var(--radius); padding:22px 20px; margin-bottom:16px; box-shadow:0 2px 12px var(--shadow); border:1px solid rgba(232,160,69,0.15); }
+  .card-title { font-family:'Playfair Display',serif; font-size:17px; font-weight:700; color:var(--forest); margin-bottom:4px; }
+  .card-subtitle { font-size:13px; color:var(--text-light); margin-bottom:18px; }
+
+  .field { margin-bottom:16px; }
+  label { display:block; font-size:13px; font-weight:600; color:var(--text); margin-bottom:7px; }
+  label .hint { font-weight:400; color:var(--text-light); font-size:12px; margin-left:4px; }
+  .input-wrap { position:relative; display:flex; align-items:center; }
+  .input-prefix { position:absolute; left:14px; font-weight:600; color:var(--text-light); font-size:16px; pointer-events:none; }
+  input[type="number"], input[type="text"], select {
+    width:100%; padding:14px 14px 14px 34px; border:2px solid #e5ddd0; border-radius:12px;
+    font-family:'DM Sans',sans-serif; font-size:16px; font-weight:500; color:var(--text);
+    background:#fff; transition:border-color 0.2s; -webkit-appearance:none;
+  }
+  input.no-prefix { padding-left:14px; }
+  input:focus, select:focus { outline:none; border-color:var(--amber); }
+  select { padding-left:14px; cursor:pointer; }
+
+  /* ADVANCED TOGGLE */
+  .advanced-toggle { display:flex; align-items:center; gap:10px; cursor:pointer; padding:12px 14px; background:var(--sand); border-radius:12px; font-size:13px; font-weight:600; color:var(--forest); margin-bottom:14px; user-select:none; transition:background 0.2s; }
+  .advanced-toggle:hover { background:#e8ddc8; }
+  .advanced-toggle .adv-arrow { margin-left:auto; font-size:11px; transition:transform 0.25s; }
+  .advanced-toggle.open .adv-arrow { transform:rotate(180deg); }
+  .advanced-panel { display:none; }
+  .advanced-panel.open { display:block; }
+
+  /* SLIDERS */
+  .slider-wrap { margin-bottom:6px; }
+  input[type="range"] { -webkit-appearance:none; width:100%; height:6px; border-radius:3px; background:var(--sand); outline:none; padding:0; border:none; }
+  input[type="range"]::-webkit-slider-thumb { -webkit-appearance:none; width:24px; height:24px; border-radius:50%; background:var(--amber); cursor:pointer; box-shadow:0 2px 8px rgba(232,160,69,0.4); }
+  .slider-labels { display:flex; justify-content:space-between; font-size:12px; color:var(--text-light); margin-top:6px; }
+  .slider-value { text-align:center; font-size:22px; font-weight:700; color:var(--forest); margin:6px 0; }
+
+  /* PIPELINE PICKER */
+  .pipeline-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+  .pipeline-btn { padding:14px 10px; border:2px solid #e5ddd0; border-radius:14px; background:#fff; cursor:pointer; text-align:center; transition:all 0.2s; font-family:'DM Sans',sans-serif; }
+  .pipeline-btn:hover { border-color:var(--amber); }
+  .pipeline-btn.selected { border-color:var(--amber); background:var(--amber-light); }
+  .pipeline-btn .pb-icon  { font-size:24px; margin-bottom:6px; }
+  .pipeline-btn .pb-label { font-size:13px; font-weight:700; color:var(--forest); }
+  .pipeline-btn .pb-sub   { font-size:11px; color:var(--text-light); margin-top:2px; }
+
+  /* BUTTONS */
+  .btn { display:block; width:100%; padding:17px; background:var(--forest); color:var(--cream); border:none; border-radius:14px; font-family:'DM Sans',sans-serif; font-size:17px; font-weight:700; cursor:pointer; transition:background 0.2s, transform 0.1s; margin-top:4px; }
+  .btn:active { transform:scale(0.98); }
+  .btn:hover { background:var(--forest-light); }
+  .btn.amber { background:var(--amber); color:var(--forest); }
+  .btn.amber:hover { background:var(--amber-dark); color:#fff; }
+  .btn.outline { background:transparent; border:2px solid var(--forest); color:var(--forest); margin-top:10px; }
+
+  /* RESULT HERO */
+  .result-hero { background:var(--forest); color:var(--cream); border-radius:var(--radius); padding:28px 24px; text-align:center; margin-bottom:16px; position:relative; overflow:hidden; }
+  .result-hero::before { content:''; position:absolute; top:-20px; right:-20px; width:100px; height:100px; border-radius:50%; background:rgba(232,160,69,0.2); }
+  .result-hero .label { font-size:12px; letter-spacing:2px; text-transform:uppercase; opacity:0.7; margin-bottom:8px; font-weight:600; }
+  .result-hero .rate { font-family:'Playfair Display',serif; font-size:clamp(44px,12vw,64px); font-weight:900; color:var(--amber); line-height:1; position:relative; }
+  .result-hero .rate-unit { font-size:15px; font-weight:500; opacity:0.75; margin-top:8px; }
+
+  /* CONFRONTATION CARD */
+  .confront-card { border-radius:var(--radius); padding:22px 20px; margin-bottom:16px; box-shadow:0 2px 12px var(--shadow); border:2px solid transparent; }
+  .confront-card.undercharging { background:var(--red-light); border-color:#f5c0bb; }
+  .confront-card.on-track      { background:var(--green-light); border-color:#b3d9c8; }
+  .cc-headline { font-family:'Playfair Display',serif; font-size:19px; font-weight:700; margin-bottom:8px; }
+  .undercharging .cc-headline { color:var(--red); }
+  .on-track      .cc-headline { color:var(--green); }
+  .cc-stat { font-family:'Playfair Display',serif; font-size:30px; font-weight:900; margin:10px 0 2px; }
+  .undercharging .cc-stat { color:var(--red); }
+  .on-track      .cc-stat { color:var(--green); }
+  .cc-sub  { font-size:12px; color:var(--text-light); margin-bottom:14px; }
+  .cc-body { font-size:14px; line-height:1.65; color:var(--text); }
+  .divider { height:1px; background:rgba(0,0,0,0.08); margin:14px 0; }
+
+  /* RATE GRID */
+  .rate-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:16px; }
+  .rate-box { background:var(--warm-white); border:1px solid rgba(232,160,69,0.2); border-radius:16px; padding:16px; text-align:center; box-shadow:0 2px 8px var(--shadow); }
+  .rate-box .rb-label { font-size:11px; color:var(--text-light); font-weight:700; letter-spacing:0.5px; text-transform:uppercase; margin-bottom:6px; }
+  .rate-box .rb-value { font-family:'Playfair Display',serif; font-size:24px; font-weight:700; color:var(--forest); }
+  .rate-box .rb-sub   { font-size:12px; color:var(--text-light); margin-top:2px; }
+
+  /* TIERS */
+  .tier { display:flex; align-items:center; gap:12px; padding:14px; background:var(--warm-white); border-radius:14px; border:2px solid transparent; margin-bottom:10px; cursor:pointer; transition:all 0.2s; box-shadow:0 2px 8px var(--shadow); }
+  .tier:hover, .tier.selected { border-color:var(--amber); }
+  .tier.selected { background:var(--amber-light); }
+  .tier .tier-name { font-weight:700; font-size:14px; color:var(--forest); flex:1; line-height:1.4; }
+  .tier .tier-name small { font-weight:400; color:var(--text-light); font-size:12px; display:block; }
+  .tier .tier-rate { font-family:'Playfair Display',serif; font-size:19px; font-weight:700; color:var(--amber-dark); }
+  .tier-badge { font-size:10px; font-weight:700; padding:3px 7px; border-radius:20px; letter-spacing:0.5px; text-transform:uppercase; }
+  .tier-badge.survival { background:#ffe0de; color:#b33; }
+  .tier-badge.comfort  { background:#d4edda; color:#1a6b3a; }
+  .tier-badge.thriving { background:#d4e4ff; color:#1a3a8b; }
+
+  /* BREAKDOWN */
+  .breakdown-row { display:flex; justify-content:space-between; align-items:center; padding:12px 0; border-bottom:1px solid var(--sand); font-size:14px; }
+  .breakdown-row:last-child { border-bottom:none; }
+  .br-label { color:var(--text-light); }
+  .br-value { font-weight:600; }
+  .br-value.red   { color:var(--red); }
+  .br-value.green { color:var(--green); }
+
+  /* INSIGHTS */
+  .insight { display:flex; gap:12px; align-items:flex-start; padding:14px; background:var(--amber-light); border-radius:14px; border-left:4px solid var(--amber); margin-bottom:12px; font-size:14px; line-height:1.55; }
+  .insight:last-child { margin-bottom:0; }
+  .insight .icon { font-size:20px; flex-shrink:0; margin-top:1px; }
+  .insight strong { display:block; color:var(--forest); font-weight:700; margin-bottom:2px; }
+
+  /* PROGRESS */
+  .progress-bar-track { height:8px; background:var(--sand); border-radius:4px; overflow:hidden; }
+  .progress-bar-fill  { height:100%; border-radius:4px; background:linear-gradient(90deg,var(--amber),var(--amber-dark)); transition:width 0.4s ease; }
+  .progress-label     { display:flex; justify-content:space-between; font-size:12px; color:var(--text-light); margin-top:5px; }
+
+
+
+  .hidden { display:none !important; }
+
+</style>
+</head>
+<body>
+
+<header>
+  <div class="tag">💼 Freelance Tool</div>
+  <h1>Know Your <span>Worth</span></h1>
+  <p>Calculate your real rate — and find out if you're leaving money on the table right now.</p>
+</header>
+
+<div class="tabs">
+  <div class="tab active" onclick="switchTab('calculate')">Calculate</div>
+  <div class="tab" onclick="switchTab('results')">Results</div>
+  <div class="tab" onclick="switchTab('insights')">Insights</div>
+</div>
+
+<!-- ══════════════ CALCULATE TAB ══════════════ -->
+<div id="tab-calculate" class="section active">
+
+  <div class="card">
+    <!-- CURRENT RATE FIELD -->
+    <div class="field" style="margin-bottom:0">
+      <label>What do you currently charge per hour? <span class="hint">(leave blank if just starting)</span></label>
+      <div class="input-wrap">
+        <span class="input-prefix" id="pfx-current">$</span>
+        <input type="number" id="current_rate" min="0" placeholder="e.g. 35 — we'll compare this to your real rate">
+      </div>
+    </div>
+  </div>
+
+  <!-- SIMPLE 3-NUMBER INPUTS -->
+  <div class="card">
+    <div class="card-title">💰 Your Monthly Numbers</div>
+    <div class="card-subtitle">Three numbers is all you need to get started</div>
+
+    <div class="field">
+      <label>Personal expenses <span class="hint">(rent, food, bills — everything personal)</span></label>
+      <div class="input-wrap">
+        <span class="input-prefix" id="pfx-personal">$</span>
+        <input type="number" id="personal_total" value="2500" min="0" placeholder="2500">
+      </div>
+    </div>
+    <div class="field">
+      <label>Business expenses <span class="hint">(software, tools, marketing)</span></label>
+      <div class="input-wrap">
+        <span class="input-prefix" id="pfx-biz">$</span>
+        <input type="number" id="biz_total" value="200" min="0" placeholder="200">
+      </div>
+    </div>
+    <div class="field">
+      <label>Monthly savings goal</label>
+      <div class="input-wrap">
+        <span class="input-prefix" id="pfx-savings">$</span>
+        <input type="number" id="savings" value="500" min="0" placeholder="500">
+      </div>
+    </div>
+
+    <!-- ADVANCED BREAKDOWN ACCORDION -->
+    <div class="advanced-toggle" id="adv-toggle" onclick="toggleAdvanced()">
+      <span>🔍 Advanced breakdown</span>
+      <span style="font-size:12px;color:var(--text-light);font-weight:400;flex:1;margin-left:8px;">helps you build up your number</span>
+      <span class="adv-arrow">▼</span>
+    </div>
+    <div class="advanced-panel" id="adv-panel">
+      <p style="font-size:12px;color:var(--text-light);margin-bottom:14px;">Fill these in to build up your totals — they'll auto-update the numbers above.</p>
+
+      <p style="font-size:12px;font-weight:700;color:var(--forest);margin-bottom:10px;text-transform:uppercase;letter-spacing:0.5px;">🏠 Personal Expenses</p>
+      <div class="field"><label>Rent / Mortgage</label><div class="input-wrap"><span class="input-prefix" id="pfx-a1">$</span><input type="number" id="adv_rent"      value="0" min="0" oninput="syncAdvanced()"></div></div>
+      <div class="field"><label>Food & Groceries</label><div class="input-wrap"><span class="input-prefix" id="pfx-a2">$</span><input type="number" id="adv_food"      value="0" min="0" oninput="syncAdvanced()"></div></div>
+      <div class="field"><label>Utilities & Internet</label><div class="input-wrap"><span class="input-prefix" id="pfx-a3">$</span><input type="number" id="adv_utilities" value="0" min="0" oninput="syncAdvanced()"></div></div>
+      <div class="field"><label>Health Insurance</label><div class="input-wrap"><span class="input-prefix" id="pfx-a4">$</span><input type="number" id="adv_health"     value="0" min="0" oninput="syncAdvanced()"></div></div>
+      <div class="field"><label>Transportation</label><div class="input-wrap"><span class="input-prefix" id="pfx-a5">$</span><input type="number" id="adv_transport"  value="0" min="0" oninput="syncAdvanced()"></div></div>
+      <div class="field"><label>Phone</label><div class="input-wrap"><span class="input-prefix" id="pfx-a6">$</span><input type="number" id="adv_phone"     value="0" min="0" oninput="syncAdvanced()"></div></div>
+      <div class="field"><label>Other Personal</label><div class="input-wrap"><span class="input-prefix" id="pfx-a7">$</span><input type="number" id="adv_other"     value="0" min="0" oninput="syncAdvanced()"></div></div>
+
+      <div style="height:1px;background:var(--sand);margin:16px 0;"></div>
+
+      <p style="font-size:12px;font-weight:700;color:var(--forest);margin-bottom:10px;text-transform:uppercase;letter-spacing:0.5px;">🏢 Business Expenses</p>
+      <div class="field"><label>Software & Subscriptions <span class="hint">(Figma, Adobe, Notion…)</span></label><div class="input-wrap"><span class="input-prefix" id="pfx-b1">$</span><input type="number" id="adv_software"  value="0" min="0" oninput="syncAdvanced()"></div></div>
+      <div class="field"><label>Marketing & Advertising</label><div class="input-wrap"><span class="input-prefix" id="pfx-b2">$</span><input type="number" id="adv_marketing" value="0" min="0" oninput="syncAdvanced()"></div></div>
+      <div class="field"><label>Courses & Professional Development</label><div class="input-wrap"><span class="input-prefix" id="pfx-b3">$</span><input type="number" id="adv_courses"   value="0" min="0" oninput="syncAdvanced()"></div></div>
+      <div class="field"><label>Accounting & Legal Fees</label><div class="input-wrap"><span class="input-prefix" id="pfx-b4">$</span><input type="number" id="adv_legal"     value="0" min="0" oninput="syncAdvanced()"></div></div>
+      <div class="field"><label>Equipment & Hardware <span class="hint">(amortized monthly)</span></label><div class="input-wrap"><span class="input-prefix" id="pfx-b5">$</span><input type="number" id="adv_equipment" value="0" min="0" oninput="syncAdvanced()"></div></div>
+      <div class="field" style="margin-bottom:0"><label>Other Business Expenses</label><div class="input-wrap"><span class="input-prefix" id="pfx-b6">$</span><input type="number" id="adv_biz_other" value="0" min="0" oninput="syncAdvanced()"></div></div>
+    </div>
+  </div>
+
+  <!-- PIPELINE PICKER -->
+  <div class="card">
+    <div class="card-title">📡 How full is your pipeline?</div>
+    <div class="card-subtitle">Be honest — this changes your recommended rate</div>
+    <div class="pipeline-grid">
+      <div class="pipeline-btn selected" id="pipe-full"         onclick="selectPipeline('full')">        <div class="pb-icon">🔥</div><div class="pb-label">Fully booked</div><div class="pb-sub">Always have work</div></div>
+      <div class="pipeline-btn"          id="pipe-inconsistent" onclick="selectPipeline('inconsistent')"><div class="pb-icon">📈</div><div class="pb-label">Inconsistent</div><div class="pb-sub">Some slow months</div></div>
+      <div class="pipeline-btn"          id="pipe-feast"        onclick="selectPipeline('feast')">       <div class="pb-icon">🎢</div><div class="pb-label">Feast / Famine</div><div class="pb-sub">Big swings</div></div>
+      <div class="pipeline-btn"          id="pipe-starting"     onclick="selectPipeline('starting')">    <div class="pb-icon">🌱</div><div class="pb-label">Just starting</div><div class="pb-sub">Building clients</div></div>
+    </div>
+  </div>
+
+  <!-- SCHEDULE -->
+  <div class="card">
+    <div class="card-title">📅 Your Work Schedule</div>
+    <div class="card-subtitle">How much do you want to work?</div>
+
+    <div class="field">
+      <label>Billable hours per week <span class="hint">(hours you actually charge clients)</span></label>
+      <div class="slider-wrap">
+        <div class="slider-value" id="hours-display">25 hrs/week</div>
+        <input type="range" id="billable_hours" min="5" max="60" value="25" step="1" oninput="document.getElementById('hours-display').textContent=this.value+' hrs/week'">
+        <div class="slider-labels"><span>5 hrs</span><span>30 hrs</span><span>60 hrs</span></div>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Weeks off per year <span class="hint">(vacation, holidays, sick days)</span></label>
+      <div class="slider-wrap">
+        <div class="slider-value" id="weeks-display">4 weeks off</div>
+        <input type="range" id="weeks_off" min="0" max="12" value="4" step="1" oninput="document.getElementById('weeks-display').textContent=this.value+' weeks off'">
+        <div class="slider-labels"><span>0</span><span>6 wks</span><span>12 wks</span></div>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Tax rate <span class="hint">(% of income to set aside)</span></label>
+      <div class="slider-wrap">
+        <div class="slider-value" id="tax-display">25%</div>
+        <input type="range" id="tax_rate" min="10" max="50" value="25" step="1" oninput="document.getElementById('tax-display').textContent=this.value+'%'">
+        <div class="slider-labels"><span>10%</span><span>30%</span><span>50%</span></div>
+      </div>
+    </div>
+  </div>
+
+<button class="btn amber" onclick="calculate()">Calculate My Rate →</button>
+</div>
+
+<!-- ══════════════ RESULTS TAB ══════════════ -->
+<div id="tab-results" class="section">
+
+  <div id="no-results" class="empty-state">
+    <div class="es-icon">🧮</div>
+    <p>Fill in the form and hit <strong>Calculate My Rate</strong> to see your results here.</p>
+  </div>
+
+  <div id="results-content" class="hidden">
+
+    <!-- CONFRONTATION CARD -->
+    <div id="confront-card" class="hidden"></div>
+
+    <div class="result-hero">
+      <div class="label">YOUR RECOMMENDED HOURLY RATE</div>
+      <div class="rate" id="hero-rate">$0</div>
+      <div class="rate-unit" id="hero-unit">/hour</div>
+    </div>
+
+    <div class="rate-grid">
+      <div class="rate-box"><div class="rb-label">Daily Rate</div><div class="rb-value" id="daily-rate">$0</div><div class="rb-sub">per day</div></div>
+      <div class="rate-box"><div class="rb-label">Weekly Rate</div><div class="rb-value" id="weekly-rate">$0</div><div class="rb-sub">per week</div></div>
+      <div class="rate-box"><div class="rb-label">Monthly Target</div><div class="rb-value" id="monthly-target">$0</div><div class="rb-sub">gross income</div></div>
+      <div class="rate-box"><div class="rb-label">Yearly Target</div><div class="rb-value" id="yearly-target">$0</div><div class="rb-sub">annual gross</div></div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">📊 Rate Tiers</div>
+      <div class="card-subtitle">Tap one to update your rate above</div>
+      <div class="tier" id="tier-survival" onclick="selectTier('survival')">
+        <span style="font-size:22px">😤</span>
+        <span class="tier-name">Survival Rate<small>Covers bills and tax only — nothing more</small></span>
+        <span class="tier-badge survival">MIN</span>
+        <span class="tier-rate" id="t-survival">$0/hr</span>
+      </div>
+      <div class="tier selected" id="tier-comfort" onclick="selectTier('comfort')">
+        <span style="font-size:22px">😊</span>
+        <span class="tier-name">Comfort Rate<small>Bills + savings + pipeline buffer</small></span>
+        <span class="tier-badge comfort">RECOMMENDED</span>
+        <span class="tier-rate" id="t-comfort">$0/hr</span>
+      </div>
+      <div class="tier" id="tier-thriving" onclick="selectTier('thriving')">
+        <span style="font-size:22px">🚀</span>
+        <span class="tier-name">Thriving Rate<small>Premium — build real wealth</small></span>
+        <span class="tier-badge thriving">PREMIUM</span>
+        <span class="tier-rate" id="t-thriving">$0/hr</span>
+      </div>
+    </div>
+
+    <button class="btn outline" onclick="switchTab('calculate')">← Recalculate</button>
+  </div>
+</div>
+
+<!-- ══════════════ INSIGHTS TAB ══════════════ -->
+<div id="tab-insights" class="section">
+
+  <div id="no-insights" class="empty-state">
+    <div class="es-icon">💡</div>
+    <p>Calculate your rate first to see your insights.</p>
+  </div>
+
+  <div id="insights-content-wrap" class="hidden">
+
+    <div class="card">
+      <div class="card-title">🔍 Monthly Breakdown — Comfort Rate</div>
+      <div class="card-subtitle">Where your money goes each month at the recommended rate</div>
+      <div class="breakdown-row"><span class="br-label">Personal expenses</span><span class="br-value" id="bd-personal">$0</span></div>
+      <div class="breakdown-row"><span class="br-label">Business expenses</span><span class="br-value" id="bd-business">$0</span></div>
+      <div class="breakdown-row"><span class="br-label">Savings goal</span><span class="br-value" id="bd-savings">$0</span></div>
+      <div class="breakdown-row"><span class="br-label">Tax reserve</span><span class="br-value red" id="bd-tax">$0</span></div>
+      <div class="breakdown-row"><span class="br-label">Pipeline buffer</span><span class="br-value" id="bd-buffer">$0</span></div>
+      <div class="breakdown-row" style="border-top:2px solid var(--amber);margin-top:4px;">
+        <span class="br-label" style="font-weight:700;color:var(--forest)">Monthly income needed</span>
+        <span class="br-value green" id="bd-total" style="font-size:16px">$0</span>
+      </div>
+    </div>
+
+    <div class="card" id="pipeline-card">
+      <div class="card-title">📡 Pipeline Reality Check</div>
+      <div id="pipeline-content"></div>
+    </div>
+
+    <button class="btn outline" onclick="switchTab('calculate')">← Recalculate</button>
+  </div>
+</div>
+
+
+
+<script>
+  let currentResults  = null;
+  let currentPipeline = 'full';
+
+  const pipelineConfig = {
+    full:         { multiplier:1.00, label:'Fully Booked',   emoji:'🔥',
+                    advice: 'You selected "Fully Booked" — no buffer added. Your rate is calculated purely on your income target.' },
+    inconsistent: { multiplier:1.25, label:'Inconsistent',   emoji:'📈',
+                    advice: 'You selected "Inconsistent" — so we\'ve added a 25% buffer to your rate to cover the months when work is light.' },
+    feast:        { multiplier:1.50, label:'Feast / Famine', emoji:'🎢',
+                    advice: 'You selected "Feast / Famine" — so we\'ve added a 50% buffer to your rate to carry you through the dry spells.' },
+    starting:     { multiplier:1.75, label:'Just Starting',  emoji:'🌱',
+                    advice: 'You selected "Just Starting" — so we\'ve added a 75% buffer to your rate to account for the time it takes to build steady income.' }
+  };
+
+  function selectPipeline(key) {
+    currentPipeline = key;
+    document.querySelectorAll('.pipeline-btn').forEach(b => b.classList.remove('selected'));
+    document.getElementById('pipe-' + key).classList.add('selected');
+  }
+
+  function toggleAdvanced() {
+    document.getElementById('adv-toggle').classList.toggle('open');
+    document.getElementById('adv-panel').classList.toggle('open');
+  }
+
+  function syncAdvanced() {
+    const personalIds = ['adv_rent','adv_food','adv_utilities','adv_health','adv_transport','adv_phone','adv_other'];
+    const personalSum = personalIds.reduce((s, id) => s + (parseFloat(document.getElementById(id).value) || 0), 0);
+    if (personalSum > 0) document.getElementById('personal_total').value = personalSum;
+
+    const bizIds = ['adv_software','adv_marketing','adv_courses','adv_legal','adv_equipment','adv_biz_other'];
+    const bizSum = bizIds.reduce((s, id) => s + (parseFloat(document.getElementById(id).value) || 0), 0);
+    if (bizSum > 0) document.getElementById('biz_total').value = bizSum;
+  }
+
+  function fmt(n) { return '$' + Math.round(n).toLocaleString(); }
+
+  function switchTab(name) {
+    document.querySelectorAll('.tab').forEach((t,i) => t.classList.toggle('active', ['calculate','results','insights'][i] === name));
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    document.getElementById('tab-' + name).classList.add('active');
+  }
+
+  function v(id) { return parseFloat(document.getElementById(id).value) || 0; }
+
+  function calculate() {
+    const personalTotal = v('personal_total');
+    const bizTotal      = v('biz_total');
+    const savings       = v('savings');
+    const currentRate   = v('current_rate');
+    const taxRate       = parseInt(document.getElementById('tax_rate').value) / 100;
+    const hoursPerWeek  = parseInt(document.getElementById('billable_hours').value);
+    const weeksOff      = parseInt(document.getElementById('weeks_off').value);
+    const pipeline      = pipelineConfig[currentPipeline];
+
+    const baseNeeded   = personalTotal + bizTotal + savings;
+    const withTax      = baseNeeded / (1 - taxRate);
+    const taxAmount    = withTax - baseNeeded;
+    const withBuffer   = withTax * pipeline.multiplier;
+    const bufferAmount = withBuffer - withTax;
+
+    const monthlyNeeded = withBuffer;
+    const workingWeeks  = 52 - weeksOff;
+    const annualHours   = hoursPerWeek * workingWeeks;
+    const annualNeeded  = monthlyNeeded * 12;
+    const hourlyRate    = annualNeeded / annualHours;
+    const dailyRate     = hourlyRate * (hoursPerWeek / 5);
+    const weeklyRate    = hourlyRate * hoursPerWeek;
+
+    const survivalRate = ((personalTotal + bizTotal) / (1 - taxRate) * 12) / annualHours;
+    const comfortRate  = hourlyRate;
+    const thrivingRate = hourlyRate * 1.5;
+
+    // Current rate comparison data
+    let confrontData = null;
+    if (currentRate > 0) {
+      const gap          = hourlyRate - currentRate;
+      const gapPct       = Math.round(Math.abs(gap / hourlyRate) * 100);
+      const hoursNeeded  = Math.round((annualNeeded / (currentRate * workingWeeks)) * 10) / 10;
+      confrontData = { currentRate, hourlyRate, gap, gapPct, hoursNeeded, annualNeeded };
+    }
+
+    currentResults = {
+      hourlyRate, dailyRate, weeklyRate, monthlyNeeded, annualNeeded,
+      survivalRate, comfortRate, thrivingRate,
+      personalTotal, bizTotal, savings, taxAmount, bufferAmount,
+      hoursPerWeek, workingWeeks, annualHours, confrontData, pipeline
+    };
+
+    renderResults(currentResults);
+    switchTab('results');
+  }
+
+  function renderResults(r) {
+    document.getElementById('no-results').classList.add('hidden');
+    document.getElementById('results-content').classList.remove('hidden');
+    document.getElementById('no-insights').classList.add('hidden');
+    document.getElementById('insights-content-wrap').classList.remove('hidden');
+
+    document.getElementById('hero-rate').textContent  = fmt(r.hourlyRate);
+    document.getElementById('hero-unit').textContent  = '/hour · ' + r.pipeline.label + ' ' + r.pipeline.emoji;
+
+    document.getElementById('daily-rate').textContent     = fmt(r.dailyRate);
+    document.getElementById('weekly-rate').textContent    = fmt(r.weeklyRate);
+    document.getElementById('monthly-target').textContent = fmt(r.monthlyNeeded);
+    document.getElementById('yearly-target').textContent  = fmt(r.annualNeeded);
+
+    document.getElementById('t-survival').textContent = fmt(r.survivalRate) + '/hr';
+    document.getElementById('t-comfort').textContent  = fmt(r.comfortRate)  + '/hr';
+    document.getElementById('t-thriving').textContent = fmt(r.thrivingRate) + '/hr';
+
+    document.getElementById('bd-personal').textContent = fmt(r.personalTotal);
+    document.getElementById('bd-business').textContent = fmt(r.bizTotal);
+    document.getElementById('bd-savings').textContent  = fmt(r.savings);
+    document.getElementById('bd-tax').textContent      = fmt(r.taxAmount);
+    document.getElementById('bd-buffer').textContent   = fmt(r.bufferAmount);
+    document.getElementById('bd-total').textContent    = fmt(r.monthlyNeeded);
+
+
+    // ── CONFRONTATION CARD
+    const cc = document.getElementById('confront-card');
+    if (r.confrontData) {
+      const d = r.confrontData;
+      cc.classList.remove('hidden');
+
+      if (d.gap > 0) {
+        // Undercharging
+        cc.className = 'confront-card undercharging';
+        cc.innerHTML = `
+          <div class="cc-headline">⚠️ You're undercharging by ${d.gapPct}%</div>
+          <div class="cc-stat">${fmt(d.gap)}/hr short</div>
+          <div class="cc-sub">undercharging by ${d.gapPct}% compared to your recommended rate of ${fmt(d.hourlyRate)}/hr</div>
+          <div class="divider"></div>
+          <div class="cc-body">
+            ${d.gapPct > 35 ? '<strong>This is a significant gap.</strong> Even raising your rate by '+fmt(d.gap * 0.5)+'/hr would make a meaningful difference immediately.' : 'Closing this gap would fully cover your expenses, savings, and tax — with a proper buffer for slow months.'}
+          </div>`;
+      } else {
+        // On track
+        const surplusAnnual = Math.abs(d.gap) * r.annualHours;
+        cc.className = 'confront-card on-track';
+        cc.innerHTML = `
+          <div class="cc-headline">✅ Your rate is on track!</div>
+          <div class="cc-stat">${d.gapPct}% above your minimum</div>
+          <div class="cc-sub">nice cushion built in already</div>
+          <div class="divider"></div>
+          <div class="cc-body">
+            At <strong>${fmt(d.currentRate)}/hr</strong> you're covering all your needs with room to spare — 
+            roughly <strong>${fmt(surplusAnnual / 12)}/month</strong> of breathing room.
+            Consider investing that surplus or using it to fund a slow-month buffer account.
+          </div>`;
+      }
+    } else {
+      cc.classList.add('hidden');
+    }
+
+    // ── PIPELINE CARD
+    const p = r.pipeline;
+    const bufferPctDisplay = Math.round((p.multiplier - 1) * 100);
+    document.getElementById('pipeline-content').innerHTML =
+      `<div class="insight"><span class="icon">${p.emoji}</span><div>${p.advice}</div></div>`;
+
+
+    // Reset tier highlight
+    document.querySelectorAll('.tier').forEach(t => t.classList.remove('selected'));
+    document.getElementById('tier-comfort').classList.add('selected');
+  }
+
+  function selectTier(tier) {
+    document.querySelectorAll('.tier').forEach(t => t.classList.remove('selected'));
+    document.getElementById('tier-' + tier).classList.add('selected');
+    if (!currentResults) return;
+    const r = currentResults;
+    const rate = tier === 'survival' ? r.survivalRate : tier === 'comfort' ? r.comfortRate : r.thrivingRate;
+    const labels = { survival: '/hour · bare minimum', comfort: '/hour · recommended', thriving: '/hour · premium' };
+    document.getElementById('hero-rate').textContent = fmt(rate);
+    document.getElementById('hero-unit').textContent = labels[tier];
+
+    // Update the grid cards to match the selected tier
+    const daily   = rate * (r.hoursPerWeek / 5);
+    const weekly  = rate * r.hoursPerWeek;
+    const monthly = rate * r.annualHours / 12;
+    const yearly  = rate * r.annualHours;
+    document.getElementById('daily-rate').textContent     = fmt(daily);
+    document.getElementById('weekly-rate').textContent    = fmt(weekly);
+    document.getElementById('monthly-target').textContent = fmt(monthly);
+    document.getElementById('yearly-target').textContent  = fmt(yearly);
+  }
+
+
+</script>
+</body>
+</html>
