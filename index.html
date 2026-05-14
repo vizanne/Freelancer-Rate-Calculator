@@ -3,13 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Freelance Rate Calculator — Know Your Worth</title>
+<title>FreelanceKit — Rate Calculator</title>
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="Rate Calc">
-<link rel="apple-touch-icon" href="data:image/png;base64,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">
-<link rel="icon" type="image/png" href="data:image/png;base64,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">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<meta name="apple-mobile-web-app-title" content="FreelanceKit">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,700;9..144,900&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
     --cream: #FDF6EC; --warm-white: #FFFAF4; --sand: #F0E6D3;
@@ -21,115 +19,126 @@
     --shadow: rgba(27,45,79,0.12); --radius: 20px;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--text); min-height: 100vh; }
+  body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--cream); color: var(--text); min-height: 100vh; }
 
-  header { background: var(--forest); color: var(--cream); padding: 36px 24px 28px; text-align: center; position: relative; overflow: hidden; }
+  /* ── HEADER ── */
+  header { background: var(--forest); color: var(--cream); padding: 28px 24px 26px; text-align: center; position: relative; overflow: hidden; }
   header::before { content:''; position:absolute; top:-40px; right:-40px; width:180px; height:180px; border-radius:50%; background:rgba(232,160,69,0.18); }
   header::after  { content:''; position:absolute; bottom:-30px; left:-20px; width:120px; height:120px; border-radius:50%; background:rgba(232,160,69,0.10); }
-  header .tag { display:inline-block; background:var(--amber); color:var(--forest); font-size:11px; font-weight:700; letter-spacing:2px; text-transform:uppercase; padding:5px 14px; border-radius:30px; margin-bottom:14px; }
-  header h1 { font-family:'Playfair Display',serif; font-size:clamp(26px,6vw,40px); font-weight:900; line-height:1.15; margin-bottom:10px; position:relative; }
-  header h1 span { color:var(--amber); }
-  header p { font-size:15px; opacity:0.8; max-width:340px; margin:0 auto; position:relative; }
 
+  .kit-brand { display:flex; align-items:center; justify-content:center; gap:8px; margin-bottom:16px; position:relative; }
+  .kit-logo { width:28px; height:28px; background:var(--amber); border-radius:8px; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+  .kit-logo svg { width:16px; height:16px; fill:var(--forest); }
+  .kit-name { font-family:'Plus Jakarta Sans', sans-serif; font-size:13px; font-weight:700; color:rgba(253,246,236,0.7); letter-spacing:0.08em; text-transform:uppercase; }
+  .kit-divider { width:1px; height:14px; background:rgba(253,246,236,0.25); }
+  .kit-tool { font-family:'Plus Jakarta Sans', sans-serif; font-size:13px; font-weight:500; color:rgba(253,246,236,0.55); }
+
+  header h1 { font-family:'Fraunces', serif; font-size:clamp(26px,6vw,40px); font-weight:900; line-height:1.15; margin-bottom:8px; position:relative; }
+  header h1 span { color:var(--amber); }
+  header p { font-size:14px; opacity:0.75; max-width:320px; margin:0 auto; position:relative; font-weight:400; line-height:1.55; }
+
+  /* ── TABS ── */
   .tabs { display:flex; background:var(--sand); border-bottom:2px solid #e0d4c0; position:sticky; top:0; z-index:100; }
-  .tab { flex:1; padding:15px 8px; text-align:center; font-size:13px; font-weight:600; color:var(--text-light); cursor:pointer; border-bottom:3px solid transparent; transition:all 0.2s; }
+  .tab { flex:1; padding:15px 8px; text-align:center; font-size:13px; font-weight:600; color:var(--text-light); cursor:pointer; border-bottom:3px solid transparent; transition:all 0.2s; font-family:'Plus Jakarta Sans',sans-serif; }
   .tab.active { color:var(--forest); border-bottom-color:var(--amber); background:var(--warm-white); }
 
   .section { display:none; padding:24px 20px 40px; max-width:540px; margin:0 auto; }
   .section.active { display:block; animation: fadeUp 0.3s ease; }
   @keyframes fadeUp { from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);} }
 
+  /* ── CARDS ── */
   .card { background:var(--warm-white); border-radius:var(--radius); padding:22px 20px; margin-bottom:16px; box-shadow:0 2px 12px var(--shadow); border:1px solid rgba(232,160,69,0.15); }
-  .card-title { font-family:'Playfair Display',serif; font-size:17px; font-weight:700; color:var(--forest); margin-bottom:4px; }
-  .card-subtitle { font-size:13px; color:var(--text-light); margin-bottom:18px; }
+  .card-title { font-family:'Fraunces', serif; font-size:17px; font-weight:700; color:var(--forest); margin-bottom:4px; }
+  .card-subtitle { font-size:13px; color:var(--text-light); margin-bottom:18px; font-weight:400; }
 
+  /* ── FORM FIELDS ── */
   .field { margin-bottom:16px; }
-  label { display:block; font-size:13px; font-weight:600; color:var(--text); margin-bottom:7px; }
+  label { display:block; font-size:13px; font-weight:600; color:var(--text); margin-bottom:7px; font-family:'Plus Jakarta Sans',sans-serif; }
   label .hint { font-weight:400; color:var(--text-light); font-size:12px; margin-left:4px; }
   .input-wrap { position:relative; display:flex; align-items:center; }
   .input-prefix { position:absolute; left:14px; font-weight:600; color:var(--text-light); font-size:16px; pointer-events:none; }
   input[type="number"], input[type="text"], select {
     width:100%; padding:14px 14px 14px 34px; border:2px solid #e5ddd0; border-radius:12px;
-    font-family:'DM Sans',sans-serif; font-size:16px; font-weight:500; color:var(--text);
+    font-family:'Plus Jakarta Sans',sans-serif; font-size:16px; font-weight:500; color:var(--text);
     background:#fff; transition:border-color 0.2s; -webkit-appearance:none;
   }
   input.no-prefix { padding-left:14px; }
   input:focus, select:focus { outline:none; border-color:var(--amber); }
   select { padding-left:14px; cursor:pointer; }
 
-  /* ADVANCED TOGGLE */
-  .advanced-toggle { display:flex; align-items:center; gap:10px; cursor:pointer; padding:12px 14px; background:var(--sand); border-radius:12px; font-size:13px; font-weight:600; color:var(--forest); margin-bottom:14px; user-select:none; transition:background 0.2s; }
+  /* ── ADVANCED TOGGLE ── */
+  .advanced-toggle { display:flex; align-items:center; gap:10px; cursor:pointer; padding:12px 14px; background:var(--sand); border-radius:12px; font-size:13px; font-weight:600; color:var(--forest); margin-bottom:14px; user-select:none; transition:background 0.2s; font-family:'Plus Jakarta Sans',sans-serif; }
   .advanced-toggle:hover { background:#e8ddc8; }
   .advanced-toggle .adv-arrow { margin-left:auto; font-size:11px; transition:transform 0.25s; }
   .advanced-toggle.open .adv-arrow { transform:rotate(180deg); }
   .advanced-panel { display:none; }
   .advanced-panel.open { display:block; }
 
-  /* SLIDERS */
+  /* ── SLIDERS ── */
   .slider-wrap { margin-bottom:6px; }
   input[type="range"] { -webkit-appearance:none; width:100%; height:6px; border-radius:3px; background:var(--sand); outline:none; padding:0; border:none; }
   input[type="range"]::-webkit-slider-thumb { -webkit-appearance:none; width:24px; height:24px; border-radius:50%; background:var(--amber); cursor:pointer; box-shadow:0 2px 8px rgba(232,160,69,0.4); }
   .slider-labels { display:flex; justify-content:space-between; font-size:12px; color:var(--text-light); margin-top:6px; }
-  .slider-value { text-align:center; font-size:22px; font-weight:700; color:var(--forest); margin:6px 0; }
+  .slider-value { text-align:center; font-size:22px; font-weight:700; color:var(--forest); margin:6px 0; font-family:'Fraunces',serif; }
 
-  /* PIPELINE PICKER */
+  /* ── PIPELINE PICKER ── */
   .pipeline-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
-  .pipeline-btn { padding:14px 10px; border:2px solid #e5ddd0; border-radius:14px; background:#fff; cursor:pointer; text-align:center; transition:all 0.2s; font-family:'DM Sans',sans-serif; }
+  .pipeline-btn { padding:14px 10px; border:2px solid #e5ddd0; border-radius:14px; background:#fff; cursor:pointer; text-align:center; transition:all 0.2s; font-family:'Plus Jakarta Sans',sans-serif; }
   .pipeline-btn:hover { border-color:var(--amber); }
   .pipeline-btn.selected { border-color:var(--amber); background:var(--amber-light); }
   .pipeline-btn .pb-icon  { font-size:24px; margin-bottom:6px; }
   .pipeline-btn .pb-label { font-size:13px; font-weight:700; color:var(--forest); }
   .pipeline-btn .pb-sub   { font-size:11px; color:var(--text-light); margin-top:2px; }
 
-  /* BUTTONS */
-  .btn { display:block; width:100%; padding:17px; background:var(--forest); color:var(--cream); border:none; border-radius:14px; font-family:'DM Sans',sans-serif; font-size:17px; font-weight:700; cursor:pointer; transition:background 0.2s, transform 0.1s; margin-top:4px; }
+  /* ── BUTTONS ── */
+  .btn { display:block; width:100%; padding:17px; background:var(--forest); color:var(--cream); border:none; border-radius:50px; font-family:'Plus Jakarta Sans',sans-serif; font-size:17px; font-weight:700; cursor:pointer; transition:background 0.2s, transform 0.1s; margin-top:4px; letter-spacing:0.01em; }
   .btn:active { transform:scale(0.98); }
   .btn:hover { background:var(--forest-light); }
   .btn.amber { background:var(--amber); color:var(--forest); }
   .btn.amber:hover { background:var(--amber-dark); color:#fff; }
   .btn.outline { background:transparent; border:2px solid var(--forest); color:var(--forest); margin-top:10px; }
 
-  /* RESULT HERO */
+  /* ── RESULT HERO ── */
   .result-hero { background:var(--forest); color:var(--cream); border-radius:var(--radius); padding:28px 24px; text-align:center; margin-bottom:16px; position:relative; overflow:hidden; }
   .result-hero::before { content:''; position:absolute; top:-20px; right:-20px; width:100px; height:100px; border-radius:50%; background:rgba(232,160,69,0.2); }
-  .result-hero .label { font-size:12px; letter-spacing:2px; text-transform:uppercase; opacity:0.7; margin-bottom:8px; font-weight:600; }
-  .result-hero .rate { font-family:'Playfair Display',serif; font-size:clamp(44px,12vw,64px); font-weight:900; color:var(--amber); line-height:1; position:relative; }
-  .result-hero .rate-unit { font-size:15px; font-weight:500; opacity:0.75; margin-top:8px; }
+  .result-hero .label { font-size:11px; letter-spacing:2px; text-transform:uppercase; opacity:0.7; margin-bottom:8px; font-weight:600; font-family:'Plus Jakarta Sans',sans-serif; }
+  .result-hero .rate { font-family:'Fraunces', serif; font-size:clamp(44px,12vw,64px); font-weight:900; color:var(--amber); line-height:1; position:relative; }
+  .result-hero .rate-unit { font-size:15px; font-weight:500; opacity:0.75; margin-top:8px; font-family:'Plus Jakarta Sans',sans-serif; }
 
-  /* CONFRONTATION CARD */
+  /* ── CONFRONTATION CARD ── */
   .confront-card { border-radius:var(--radius); padding:22px 20px; margin-bottom:16px; box-shadow:0 2px 12px var(--shadow); border:2px solid transparent; }
   .confront-card.undercharging { background:var(--red-light); border-color:#f5c0bb; }
   .confront-card.on-track      { background:var(--green-light); border-color:#b3d9c8; }
-  .cc-headline { font-family:'Playfair Display',serif; font-size:19px; font-weight:700; margin-bottom:8px; }
+  .cc-headline { font-family:'Fraunces', serif; font-size:19px; font-weight:700; margin-bottom:8px; }
   .undercharging .cc-headline { color:var(--red); }
   .on-track      .cc-headline { color:var(--green); }
-  .cc-stat { font-family:'Playfair Display',serif; font-size:30px; font-weight:900; margin:10px 0 2px; }
+  .cc-stat { font-family:'Fraunces', serif; font-size:30px; font-weight:900; margin:10px 0 2px; }
   .undercharging .cc-stat { color:var(--red); }
   .on-track      .cc-stat { color:var(--green); }
   .cc-sub  { font-size:12px; color:var(--text-light); margin-bottom:14px; }
   .cc-body { font-size:14px; line-height:1.65; color:var(--text); }
   .divider { height:1px; background:rgba(0,0,0,0.08); margin:14px 0; }
 
-  /* RATE GRID */
+  /* ── RATE GRID ── */
   .rate-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:16px; }
   .rate-box { background:var(--warm-white); border:1px solid rgba(232,160,69,0.2); border-radius:16px; padding:16px; text-align:center; box-shadow:0 2px 8px var(--shadow); }
-  .rate-box .rb-label { font-size:11px; color:var(--text-light); font-weight:700; letter-spacing:0.5px; text-transform:uppercase; margin-bottom:6px; }
-  .rate-box .rb-value { font-family:'Playfair Display',serif; font-size:24px; font-weight:700; color:var(--forest); }
+  .rate-box .rb-label { font-size:11px; color:var(--text-light); font-weight:700; letter-spacing:0.5px; text-transform:uppercase; margin-bottom:6px; font-family:'Plus Jakarta Sans',sans-serif; }
+  .rate-box .rb-value { font-family:'Fraunces', serif; font-size:24px; font-weight:700; color:var(--forest); }
   .rate-box .rb-sub   { font-size:12px; color:var(--text-light); margin-top:2px; }
 
-  /* TIERS */
+  /* ── TIERS ── */
   .tier { display:flex; align-items:center; gap:12px; padding:14px; background:var(--warm-white); border-radius:14px; border:2px solid transparent; margin-bottom:10px; cursor:pointer; transition:all 0.2s; box-shadow:0 2px 8px var(--shadow); }
   .tier:hover, .tier.selected { border-color:var(--amber); }
   .tier.selected { background:var(--amber-light); }
-  .tier .tier-name { font-weight:700; font-size:14px; color:var(--forest); flex:1; line-height:1.4; }
+  .tier .tier-name { font-weight:700; font-size:14px; color:var(--forest); flex:1; line-height:1.4; font-family:'Plus Jakarta Sans',sans-serif; }
   .tier .tier-name small { font-weight:400; color:var(--text-light); font-size:12px; display:block; }
-  .tier .tier-rate { font-family:'Playfair Display',serif; font-size:19px; font-weight:700; color:var(--amber-dark); }
-  .tier-badge { font-size:10px; font-weight:700; padding:3px 7px; border-radius:20px; letter-spacing:0.5px; text-transform:uppercase; }
+  .tier .tier-rate { font-family:'Fraunces', serif; font-size:19px; font-weight:700; color:var(--amber-dark); }
+  .tier-badge { font-size:10px; font-weight:700; padding:3px 7px; border-radius:20px; letter-spacing:0.5px; text-transform:uppercase; font-family:'Plus Jakarta Sans',sans-serif; }
   .tier-badge.survival { background:#ffe0de; color:#b33; }
   .tier-badge.comfort  { background:#d4edda; color:#1a6b3a; }
   .tier-badge.thriving { background:#d4e4ff; color:#1a3a8b; }
 
-  /* BREAKDOWN */
+  /* ── BREAKDOWN ── */
   .breakdown-row { display:flex; justify-content:space-between; align-items:center; padding:12px 0; border-bottom:1px solid var(--sand); font-size:14px; }
   .breakdown-row:last-child { border-bottom:none; }
   .br-label { color:var(--text-light); }
@@ -137,29 +146,38 @@
   .br-value.red   { color:var(--red); }
   .br-value.green { color:var(--green); }
 
-  /* INSIGHTS */
+  /* ── INSIGHTS ── */
   .insight { display:flex; gap:12px; align-items:flex-start; padding:14px; background:var(--amber-light); border-radius:14px; border-left:4px solid var(--amber); margin-bottom:12px; font-size:14px; line-height:1.55; }
   .insight:last-child { margin-bottom:0; }
   .insight .icon { font-size:20px; flex-shrink:0; margin-top:1px; }
   .insight strong { display:block; color:var(--forest); font-weight:700; margin-bottom:2px; }
 
-  /* PROGRESS */
+  /* ── PROGRESS ── */
   .progress-bar-track { height:8px; background:var(--sand); border-radius:4px; overflow:hidden; }
   .progress-bar-fill  { height:100%; border-radius:4px; background:linear-gradient(90deg,var(--amber),var(--amber-dark)); transition:width 0.4s ease; }
   .progress-label     { display:flex; justify-content:space-between; font-size:12px; color:var(--text-light); margin-top:5px; }
 
-
+  /* ── EMPTY STATE ── */
+  .empty-state { text-align:center; padding:60px 24px; color:var(--text-light); }
+  .empty-state .es-icon { font-size:48px; margin-bottom:16px; }
+  .empty-state p { font-size:15px; line-height:1.6; }
 
   .hidden { display:none !important; }
-
 </style>
 </head>
 <body>
 
 <header>
-  <div class="tag">💼 Freelancer Tool</div>
+  <div class="kit-brand">
+    <div class="kit-logo">
+      <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M2 3h12v2H2V3zm0 4h8v2H2V7zm0 4h10v2H2v-2z"/></svg>
+    </div>
+    <span class="kit-name">FreelanceKit</span>
+    <div class="kit-divider"></div>
+    <span class="kit-tool">Rate Calculator</span>
+  </div>
   <h1>Know Your <span>Worth</span></h1>
-  <p>Calculate your real rate — and find out if you're leaving money on the table right now.</p>
+  <p>Calculate your real rate — and find out if you're leaving money on the table.</p>
 </header>
 
 <div class="tabs">
@@ -172,17 +190,15 @@
 <div id="tab-calculate" class="section active">
 
   <div class="card">
-    <!-- CURRENT RATE FIELD -->
     <div class="field" style="margin-bottom:0">
       <label>What do you currently charge per hour? <span class="hint">(leave blank if just starting)</span></label>
       <div class="input-wrap">
         <span class="input-prefix" id="pfx-current">$</span>
-        <input type="number" id="current_rate" min="0" placeholder="e.g. 35 — we'll compare this to your real rate">
+        <input type="number" id="current_rate" class="" min="0" placeholder="e.g. 45">
       </div>
     </div>
   </div>
 
-  <!-- SIMPLE 3-NUMBER INPUTS -->
   <div class="card">
     <div class="card-title">💰 Your Monthly Numbers</div>
     <div class="card-subtitle">Three numbers is all you need to get started</div>
@@ -190,26 +206,25 @@
     <div class="field">
       <label>Personal expenses <span class="hint">(rent, food, bills — everything personal)</span></label>
       <div class="input-wrap">
-        <span class="input-prefix" id="pfx-personal">$</span>
+        <span class="input-prefix">$</span>
         <input type="number" id="personal_total" value="2500" min="0" placeholder="2500">
       </div>
     </div>
     <div class="field">
       <label>Business expenses <span class="hint">(software, tools, marketing)</span></label>
       <div class="input-wrap">
-        <span class="input-prefix" id="pfx-biz">$</span>
+        <span class="input-prefix">$</span>
         <input type="number" id="biz_total" value="200" min="0" placeholder="200">
       </div>
     </div>
     <div class="field">
       <label>Monthly savings goal</label>
       <div class="input-wrap">
-        <span class="input-prefix" id="pfx-savings">$</span>
+        <span class="input-prefix">$</span>
         <input type="number" id="savings" value="500" min="0" placeholder="500">
       </div>
     </div>
 
-    <!-- ADVANCED BREAKDOWN ACCORDION -->
     <div class="advanced-toggle" id="adv-toggle" onclick="toggleAdvanced()">
       <span>🔍 Advanced breakdown</span>
       <span style="font-size:12px;color:var(--text-light);font-weight:400;flex:1;margin-left:8px;">helps you build up your number</span>
@@ -219,27 +234,26 @@
       <p style="font-size:12px;color:var(--text-light);margin-bottom:14px;">Fill these in to build up your totals — they'll auto-update the numbers above.</p>
 
       <p style="font-size:12px;font-weight:700;color:var(--forest);margin-bottom:10px;text-transform:uppercase;letter-spacing:0.5px;">🏠 Personal Expenses</p>
-      <div class="field"><label>Rent / Mortgage</label><div class="input-wrap"><span class="input-prefix" id="pfx-a1">$</span><input type="number" id="adv_rent"      value="0" min="0" oninput="syncAdvanced()"></div></div>
-      <div class="field"><label>Food & Groceries</label><div class="input-wrap"><span class="input-prefix" id="pfx-a2">$</span><input type="number" id="adv_food"      value="0" min="0" oninput="syncAdvanced()"></div></div>
-      <div class="field"><label>Utilities & Internet</label><div class="input-wrap"><span class="input-prefix" id="pfx-a3">$</span><input type="number" id="adv_utilities" value="0" min="0" oninput="syncAdvanced()"></div></div>
-      <div class="field"><label>Health Insurance</label><div class="input-wrap"><span class="input-prefix" id="pfx-a4">$</span><input type="number" id="adv_health"     value="0" min="0" oninput="syncAdvanced()"></div></div>
-      <div class="field"><label>Transportation</label><div class="input-wrap"><span class="input-prefix" id="pfx-a5">$</span><input type="number" id="adv_transport"  value="0" min="0" oninput="syncAdvanced()"></div></div>
-      <div class="field"><label>Phone</label><div class="input-wrap"><span class="input-prefix" id="pfx-a6">$</span><input type="number" id="adv_phone"     value="0" min="0" oninput="syncAdvanced()"></div></div>
-      <div class="field"><label>Other Personal</label><div class="input-wrap"><span class="input-prefix" id="pfx-a7">$</span><input type="number" id="adv_other"     value="0" min="0" oninput="syncAdvanced()"></div></div>
+      <div class="field"><label>Rent / Mortgage</label><div class="input-wrap"><span class="input-prefix">$</span><input type="number" id="adv_rent"      value="0" min="0" oninput="syncAdvanced()"></div></div>
+      <div class="field"><label>Food & Groceries</label><div class="input-wrap"><span class="input-prefix">$</span><input type="number" id="adv_food"      value="0" min="0" oninput="syncAdvanced()"></div></div>
+      <div class="field"><label>Utilities & Internet</label><div class="input-wrap"><span class="input-prefix">$</span><input type="number" id="adv_utilities" value="0" min="0" oninput="syncAdvanced()"></div></div>
+      <div class="field"><label>Health Insurance</label><div class="input-wrap"><span class="input-prefix">$</span><input type="number" id="adv_health"     value="0" min="0" oninput="syncAdvanced()"></div></div>
+      <div class="field"><label>Transportation</label><div class="input-wrap"><span class="input-prefix">$</span><input type="number" id="adv_transport"  value="0" min="0" oninput="syncAdvanced()"></div></div>
+      <div class="field"><label>Phone</label><div class="input-wrap"><span class="input-prefix">$</span><input type="number" id="adv_phone"     value="0" min="0" oninput="syncAdvanced()"></div></div>
+      <div class="field"><label>Other Personal</label><div class="input-wrap"><span class="input-prefix">$</span><input type="number" id="adv_other"     value="0" min="0" oninput="syncAdvanced()"></div></div>
 
       <div style="height:1px;background:var(--sand);margin:16px 0;"></div>
 
       <p style="font-size:12px;font-weight:700;color:var(--forest);margin-bottom:10px;text-transform:uppercase;letter-spacing:0.5px;">🏢 Business Expenses</p>
-      <div class="field"><label>Software & Subscriptions <span class="hint">(Figma, Adobe, Notion…)</span></label><div class="input-wrap"><span class="input-prefix" id="pfx-b1">$</span><input type="number" id="adv_software"  value="0" min="0" oninput="syncAdvanced()"></div></div>
-      <div class="field"><label>Marketing & Advertising</label><div class="input-wrap"><span class="input-prefix" id="pfx-b2">$</span><input type="number" id="adv_marketing" value="0" min="0" oninput="syncAdvanced()"></div></div>
-      <div class="field"><label>Courses & Professional Development</label><div class="input-wrap"><span class="input-prefix" id="pfx-b3">$</span><input type="number" id="adv_courses"   value="0" min="0" oninput="syncAdvanced()"></div></div>
-      <div class="field"><label>Accounting & Legal Fees</label><div class="input-wrap"><span class="input-prefix" id="pfx-b4">$</span><input type="number" id="adv_legal"     value="0" min="0" oninput="syncAdvanced()"></div></div>
-      <div class="field"><label>Equipment & Hardware <span class="hint">(amortized monthly)</span></label><div class="input-wrap"><span class="input-prefix" id="pfx-b5">$</span><input type="number" id="adv_equipment" value="0" min="0" oninput="syncAdvanced()"></div></div>
-      <div class="field" style="margin-bottom:0"><label>Other Business Expenses</label><div class="input-wrap"><span class="input-prefix" id="pfx-b6">$</span><input type="number" id="adv_biz_other" value="0" min="0" oninput="syncAdvanced()"></div></div>
+      <div class="field"><label>Software & Subscriptions <span class="hint">(Figma, Adobe, Notion…)</span></label><div class="input-wrap"><span class="input-prefix">$</span><input type="number" id="adv_software"  value="0" min="0" oninput="syncAdvanced()"></div></div>
+      <div class="field"><label>Marketing & Advertising</label><div class="input-wrap"><span class="input-prefix">$</span><input type="number" id="adv_marketing" value="0" min="0" oninput="syncAdvanced()"></div></div>
+      <div class="field"><label>Courses & Professional Development</label><div class="input-wrap"><span class="input-prefix">$</span><input type="number" id="adv_courses"   value="0" min="0" oninput="syncAdvanced()"></div></div>
+      <div class="field"><label>Accounting & Legal Fees</label><div class="input-wrap"><span class="input-prefix">$</span><input type="number" id="adv_legal"     value="0" min="0" oninput="syncAdvanced()"></div></div>
+      <div class="field"><label>Equipment & Hardware <span class="hint">(amortized monthly)</span></label><div class="input-wrap"><span class="input-prefix">$</span><input type="number" id="adv_equipment" value="0" min="0" oninput="syncAdvanced()"></div></div>
+      <div class="field" style="margin-bottom:0"><label>Other Business Expenses</label><div class="input-wrap"><span class="input-prefix">$</span><input type="number" id="adv_biz_other" value="0" min="0" oninput="syncAdvanced()"></div></div>
     </div>
   </div>
 
-  <!-- PIPELINE PICKER -->
   <div class="card">
     <div class="card-title">📡 How full is your pipeline?</div>
     <div class="card-subtitle">Be honest — this changes your recommended rate</div>
@@ -251,7 +265,6 @@
     </div>
   </div>
 
-  <!-- SCHEDULE -->
   <div class="card">
     <div class="card-title">📅 Your Work Schedule</div>
     <div class="card-subtitle">How much do you want to work?</div>
@@ -284,7 +297,7 @@
     </div>
   </div>
 
-<button class="btn amber" onclick="calculate()">Calculate My Rate →</button>
+  <button class="btn amber" onclick="calculate()">Calculate My Rate →</button>
 </div>
 
 <!-- ══════════════ RESULTS TAB ══════════════ -->
@@ -297,7 +310,6 @@
 
   <div id="results-content" class="hidden">
 
-    <!-- CONFRONTATION CARD -->
     <div id="confront-card" class="hidden"></div>
 
     <div class="result-hero">
@@ -373,21 +385,15 @@
   </div>
 </div>
 
-
-
 <script>
   let currentResults  = null;
   let currentPipeline = 'full';
 
   const pipelineConfig = {
-    full:         { multiplier:1.00, label:'Fully Booked',   emoji:'🔥',
-                    advice: 'You selected "Fully Booked" — no buffer added. Your rate is calculated purely on your income target.' },
-    inconsistent: { multiplier:1.25, label:'Inconsistent',   emoji:'📈',
-                    advice: 'You selected "Inconsistent" — so we\'ve added a 25% buffer to your rate to cover the months when work is light.' },
-    feast:        { multiplier:1.50, label:'Feast / Famine', emoji:'🎢',
-                    advice: 'You selected "Feast / Famine" — so we\'ve added a 50% buffer to your rate to carry you through the dry spells.' },
-    starting:     { multiplier:1.75, label:'Just Starting',  emoji:'🌱',
-                    advice: 'You selected "Just Starting" — so we\'ve added a 75% buffer to your rate to account for the time it takes to build steady income.' }
+    full:         { multiplier:1.00, label:'Fully Booked',   emoji:'🔥', advice: 'You selected "Fully Booked" — no buffer added. Your rate is calculated purely on your income target.' },
+    inconsistent: { multiplier:1.25, label:'Inconsistent',   emoji:'📈', advice: 'You selected "Inconsistent" — so we\'ve added a 25% buffer to your rate to cover the months when work is light.' },
+    feast:        { multiplier:1.50, label:'Feast / Famine', emoji:'🎢', advice: 'You selected "Feast / Famine" — so we\'ve added a 50% buffer to your rate to carry you through the dry spells.' },
+    starting:     { multiplier:1.75, label:'Just Starting',  emoji:'🌱', advice: 'You selected "Just Starting" — so we\'ve added a 75% buffer to your rate to account for the time it takes to build steady income.' }
   };
 
   function selectPipeline(key) {
@@ -405,7 +411,6 @@
     const personalIds = ['adv_rent','adv_food','adv_utilities','adv_health','adv_transport','adv_phone','adv_other'];
     const personalSum = personalIds.reduce((s, id) => s + (parseFloat(document.getElementById(id).value) || 0), 0);
     if (personalSum > 0) document.getElementById('personal_total').value = personalSum;
-
     const bizIds = ['adv_software','adv_marketing','adv_courses','adv_legal','adv_equipment','adv_biz_other'];
     const bizSum = bizIds.reduce((s, id) => s + (parseFloat(document.getElementById(id).value) || 0), 0);
     if (bizSum > 0) document.getElementById('biz_total').value = bizSum;
@@ -449,12 +454,11 @@
     const comfortRate  = hourlyRate;
     const thrivingRate = hourlyRate * 1.5;
 
-    // Current rate comparison data
     let confrontData = null;
     if (currentRate > 0) {
-      const gap          = hourlyRate - currentRate;
-      const gapPct       = Math.round(Math.abs(gap / hourlyRate) * 100);
-      const hoursNeeded  = Math.round((annualNeeded / (currentRate * workingWeeks)) * 10) / 10;
+      const gap         = hourlyRate - currentRate;
+      const gapPct      = Math.round(Math.abs(gap / hourlyRate) * 100);
+      const hoursNeeded = Math.round((annualNeeded / (currentRate * workingWeeks)) * 10) / 10;
       confrontData = { currentRate, hourlyRate, gap, gapPct, hoursNeeded, annualNeeded };
     }
 
@@ -494,15 +498,11 @@
     document.getElementById('bd-buffer').textContent   = fmt(r.bufferAmount);
     document.getElementById('bd-total').textContent    = fmt(r.monthlyNeeded);
 
-
-    // ── CONFRONTATION CARD
     const cc = document.getElementById('confront-card');
     if (r.confrontData) {
       const d = r.confrontData;
       cc.classList.remove('hidden');
-
       if (d.gap > 0) {
-        // Undercharging
         cc.className = 'confront-card undercharging';
         cc.innerHTML = `
           <div class="cc-headline">⚠️ You're undercharging by ${d.gapPct}%</div>
@@ -513,7 +513,6 @@
             ${d.gapPct > 35 ? '<strong>This is a significant gap.</strong> Even raising your rate by '+fmt(d.gap * 0.5)+'/hr would make a meaningful difference immediately.' : 'Closing this gap would fully cover your expenses, savings, and tax — with a proper buffer for slow months.'}
           </div>`;
       } else {
-        // On track
         const surplusAnnual = Math.abs(d.gap) * r.annualHours;
         cc.className = 'confront-card on-track';
         cc.innerHTML = `
@@ -531,14 +530,9 @@
       cc.classList.add('hidden');
     }
 
-    // ── PIPELINE CARD
-    const p = r.pipeline;
-    const bufferPctDisplay = Math.round((p.multiplier - 1) * 100);
     document.getElementById('pipeline-content').innerHTML =
-      `<div class="insight"><span class="icon">${p.emoji}</span><div>${p.advice}</div></div>`;
+      `<div class="insight"><span class="icon">${r.pipeline.emoji}</span><div>${r.pipeline.advice}</div></div>`;
 
-
-    // Reset tier highlight
     document.querySelectorAll('.tier').forEach(t => t.classList.remove('selected'));
     document.getElementById('tier-comfort').classList.add('selected');
   }
@@ -552,8 +546,6 @@
     const labels = { survival: '/hour · bare minimum', comfort: '/hour · recommended', thriving: '/hour · premium' };
     document.getElementById('hero-rate').textContent = fmt(rate);
     document.getElementById('hero-unit').textContent = labels[tier];
-
-    // Update the grid cards to match the selected tier
     const daily   = rate * (r.hoursPerWeek / 5);
     const weekly  = rate * r.hoursPerWeek;
     const monthly = rate * r.annualHours / 12;
@@ -563,8 +555,6 @@
     document.getElementById('monthly-target').textContent = fmt(monthly);
     document.getElementById('yearly-target').textContent  = fmt(yearly);
   }
-
-
 </script>
 </body>
 </html>
